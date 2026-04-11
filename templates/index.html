@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FITSLOT - Premium Gym Booking</title>
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    
+    <style>
+        body {
+            background-color: #f4f7f6; 
+            color: #333333;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            min-height: 100vh;
+        }
+        .header-section { padding: 50px 0 30px 0; text-transform: uppercase; }
+        .title-text { color: #2eb82e; font-weight: 900; letter-spacing: 4px; font-size: 3rem; margin-bottom: 5px; }
+       .subtitle-text { color: #6c757d; letter-spacing: 2px; font-size: 1rem; font-weight: bold; }
+        .fitslot-card {
+            background: #ffffff;
+            border: 1px solid #e9ecef;
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .fitslot-card:hover { transform: translateY(-5px); box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); border-color: rgba(46, 184, 46, 0.3); }
+
+        .form-control, .form-select { background-color: #f8f9fa !important; border: 1px solid #ced4da !important; color: #333333 !important; border-radius: 8px; padding: 12px; }
+        .form-control:focus, .form-select:focus { border-color: #2eb82e !important; box-shadow: 0 0 0 3px rgba(46, 184, 46, 0.2) !important; background-color: #ffffff !important;}
+        .form-label { color: #495057; font-weight: 600; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; }
+
+        .btn-green { background: #2eb82e; color: #ffffff; font-weight: 800; letter-spacing: 1px; border: none; border-radius: 8px; padding: 14px; width: 100%; margin-top: 15px; transition: all 0.3s ease; }
+        .btn-green:hover { background: #248f24; color: #ffffff; transform: scale(1.02); box-shadow: 0 4px 15px rgba(46, 184, 46, 0.3); }
+
+        .table th { border: none; color: #6c757d; text-transform: uppercase; font-size: 0.8rem; padding-bottom: 15px; }
+        .table td { background-color: #ffffff; border-bottom: 1px solid #f1f3f5; padding: 16px; vertical-align: middle; color: #333333; }
+        .table tbody tr:hover td { background-color: #f8f9fa; }
+        .text-green { color: #2eb82e !important; }
+
+        .badge { font-size: 0.75rem; padding: 6px 10px; border-radius: 6px; }
+        .bg-warning { background-color: #ffc107 !important; color: #000 !important; font-weight: bold;}
+        .bg-success { background-color: #d1e7dd !important; color: #0f5132 !important; border: 1px solid #badbcc;}
+
+        .btn-action { width: 35px; height: 35px; border-radius: 8px; border: none; transition: background 0.2s;}
+        .btn-edit { background-color: #e0f8f1; color: #0ca678; }
+        .btn-edit:hover { background-color: #0ca678; color: #fff; }
+        .btn-cancel { background-color: #ffe3e3; color: #fa5252; }
+        .btn-cancel:hover { background-color: #fa5252; color: #fff; }
+
+        .modal-content { background-color: #ffffff; border: none; border-radius: 16px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+        .modal-header { border-bottom: 1px solid #e9ecef; }
+        .modal-footer { border-top: 1px solid #e9ecef; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="row header-section">
+        <div class="col-12 text-center">
+            <h1 class="title-text"><i class="bi bi-lightning-charge-fill"></i> FITSLOT</h1>
+            <p class="subtitle-text fw-bold">ENTERPRISE GYM SCHEDULING</p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-4 mb-4">
+            <div class="fitslot-card">
+                <h4 class="mb-4 text-center fw-bold text-dark"><i class="bi bi-calendar-plus text-green"></i> Book a Slot</h4>
+                <form action="/book" method="POST">
+                    <div class="mb-3">
+                        <label class="form-label"><i class="bi bi-person"></i> Full Name</label>
+                        <input type="text" class="form-control" name="n" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label"><i class="bi bi-geo-alt"></i> Workout Zone</label>
+                        <select class="form-select" name="w" required>
+                            <option value="Olympic Weightlifting">Olympic Weightlifting</option>
+                            <option value="Cardio & Core">Cardio & Core</option>
+                            <option value="Basketball Court">Basketball Court</option>
+                            <option value="Swimming Pool">Swimming Pool</option>
+                            <option value="Yoga Studio">Yoga Studio</option>
+                            <option value="Boxing Ring">Boxing Ring</option>
+                        </select>
+                    </div>
+                    <div class="mb-4">
+                        <label class="form-label"><i class="bi bi-clock"></i> Select Time</label>
+                        <input type="time" class="form-control" name="t" required>
+                    </div>
+                    <button type="submit" class="btn btn-green">CONFIRM BOOKING</button>
+                </form>
+            </div>
+        </div>
+
+        <div class="col-lg-8">
+            <div class="fitslot-card table-responsive">
+                
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h4 class="fw-bold m-0 text-dark"><i class="bi bi-list-task text-green"></i> Today's Roster</h4>
+                    <select id="timeFormatToggle" class="form-select w-auto form-select-sm" style="padding: 5px 30px 5px 10px;">
+                        <option value="12">12-Hour (AM/PM)</option>
+                        <option value="24">24-Hour</option>
+                    </select>
+                </div>
+
+                <table class="table mb-0">
+                    <thead>
+                        <tr>
+                            <th>Member Info</th>
+                            <th>Zone</th>
+                            <th>Time</th>
+                            <th>Status</th>
+                            <th class="text-center">Manage</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for s in data %}
+                        <tr>
+                            <td>
+                                <div class="d-flex align-items-center">
+                                    <i class="bi bi-person-circle fs-4 me-3 text-secondary"></i>
+                                    <span class="text-green fw-bold fs-6">{{ s['name'] }}</span>
+                                </div>
+                            </td>
+                            <td class="fw-semibold">{{ s['workout'] }}</td>
+                            
+                            <td>
+                                <i class="bi bi-clock-history text-secondary me-1"></i> 
+                                <span class="time-display fw-semibold" data-raw-time="{{ s['time'] }}">{{ s['time'] }}</span>
+                            </td>
+                            
+                            <td>
+                                {% if s['status'] == 'Legacy Member' %}
+                                    <span class="badge bg-warning"><i class="bi bi-star-fill"></i> LEGACY</span>
+                                {% else %}
+                                    <span class="badge bg-success">ACTIVE</span>
+                                {% endif %}
+                            </td>
+                            <td>
+                                <div class="d-flex justify-content-center gap-2">
+                                    <button type="button" class="btn-action btn-edit" data-bs-toggle="modal" data-bs-target="#editModal{{ s['id'] }}"><i class="bi bi-pencil-square"></i></button>
+                                    <form action="/cancel/{{ s['id'] }}" method="POST" style="margin: 0;">
+                                        <button type="submit" class="btn-action btn-cancel" onclick="return confirm('Cancel this booking?');"><i class="bi bi-trash3-fill"></i></button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% for s in data %}
+<div class="modal fade" id="editModal{{ s['id'] }}" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+        <div class="modal-header">
+        <h5 class="modal-title text-green fw-bold"><i class="bi bi-pencil-square"></i> Edit: {{ s['name'] }}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <form action="/update/{{ s['id'] }}" method="POST">
+            <div class="modal-body">
+                <div class="mb-3">
+                    <label class="form-label">Change Workout Zone</label>
+                    <select class="form-select" name="w" required>
+                        <option value="Olympic Weightlifting" {% if s['workout'] == 'Olympic Weightlifting' %}selected{% endif %}>Olympic Weightlifting</option>
+                        <option value="Cardio & Core" {% if s['workout'] == 'Cardio & Core' %}selected{% endif %}>Cardio & Core</option>
+                        <option value="Basketball Court" {% if s['workout'] == 'Basketball Court' %}selected{% endif %}>Basketball Court</option>
+                        <option value="Swimming Pool" {% if s['workout'] == 'Swimming Pool' %}selected{% endif %}>Swimming Pool</option>
+                        <option value="Yoga Studio" {% if s['workout'] == 'Yoga Studio' %}selected{% endif %}>Yoga Studio</option>
+                        <option value="Boxing Ring" {% if s['workout'] == 'Boxing Ring' %}selected{% endif %}>Boxing Ring</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Change Time</label>
+                    <input type="time" class="form-control" name="t" value="{{ s['time'] }}" required>
+                </div>
+            </div>
+            <div class="modal-footer">
+            <button type="submit" class="btn btn-green w-auto mt-0 px-4">Save Changes</button>
+            </div>
+        </form>
+    </div>
+    </div>
+</div>
+{% endfor %}
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const toggle = document.getElementById('timeFormatToggle');
+        const timeDisplays = document.querySelectorAll('.time-display');
+
+        function formatTime(timeStr, format) {
+            // Failsafe in case DB has old AM/PM strings still
+            if (!timeStr || !timeStr.includes(':') || timeStr.toUpperCase().includes('M')) {
+                return timeStr; 
+            }
+
+            if (format === '24') {
+                return timeStr;
+            }
+
+            // Convert 24h to 12h
+            let [hours, minutes] = timeStr.split(':');
+            hours = parseInt(hours, 10);
+            const ampm = hours >= 12 ? 'PM' : 'AM';
+            hours = hours % 12;
+            hours = hours ? hours : 12; // Handle midnight
+            
+            return `${hours}:${minutes} ${ampm}`;
+        }
+
+        function updateRosterTimes() {
+            const currentFormat = toggle.value;
+            timeDisplays.forEach(display => {
+                const rawTime = display.getAttribute('data-raw-time');
+                display.textContent = formatTime(rawTime, currentFormat);
+            });
+        }
+
+        // Listen for user changes
+        toggle.addEventListener('change', updateRosterTimes);
+        
+        // Trigger conversion immediately on load
+        updateRosterTimes();
+    });
+</script>
+
+</body>
+</html>

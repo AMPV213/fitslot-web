@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fitslot - Admin Panel</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <style>
+        body { background-color: #0f172a; color: #f8fafc; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        
+        /* Layout Panels */
+        .panel { background-color: #1e293b; border-radius: 12px; padding: 20px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1); margin-bottom: 20px; }
+        
+        .text-brand { color: #39FF14; font-weight: 800; font-size: 1.5rem; letter-spacing: 1px;}
+        
+        /* Table Styling */
+        table { width: 100%; border-collapse: separate; border-spacing: 0 10px; }
+        th { color: #94a3b8; font-weight: 600; text-transform: uppercase; font-size: 0.85rem; padding-bottom: 10px; border-bottom: 1px solid #334155; }
+        td { background-color: #1a202c; padding: 15px 10px; vertical-align: middle; color: #e2e8f0; }
+        tr td:first-child { border-top-left-radius: 8px; border-bottom-left-radius: 8px; }
+        tr td:last-child { border-top-right-radius: 8px; border-bottom-right-radius: 8px; }
+        
+        .stat-card-icon { font-size: 3.5rem; color: #39FF14; text-shadow: 0 0 15px rgba(57, 255, 20, 0.3); }
+    </style>
+</head>
+<body>
+
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div class="text-brand">
+            <i class="bi bi-shield-lock-fill"></i> FITSLOT ADMIN <br>
+            <span style="font-size: 0.8rem; color: #94a3b8; font-weight: normal; letter-spacing: 2px;">SYSTEM MANAGEMENT</span>
+        </div>
+        
+        <div>
+            <a href="{{ url_for('dashboard') }}" class="btn btn-outline-light btn-sm me-2"><i class="bi bi-arrow-left"></i> Back to Dashboard</a>
+            <a href="{{ url_for('logout') }}" class="btn btn-outline-danger btn-sm">Logout</a>
+        </div>
+    </div>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+                    {{ message }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+    <div class="row">
+        <div class="col-md-4">
+            <div class="panel text-center py-5">
+                <i class="bi bi-people-fill stat-card-icon"></i>
+                <h2 class="fw-bold mt-3 mb-1" style="font-size: 3rem;">{{ total_users }}</h2>
+                <p class="text-muted mb-0 text-uppercase fw-bold" style="letter-spacing: 1px;">Total Registered Users</p>
+            </div>
+            
+            <div class="panel">
+                <h6 class="text-muted mb-3"><i class="bi bi-info-circle"></i> Admin Notice</h6>
+                <p style="font-size: 0.85rem; color: #94a3b8;">
+                    This dashboard tracks successful user logins across the application. 
+                    As an administrator, you have visibility into account access times for security auditing.
+                </p>
+            </div>
+        </div>
+
+        <div class="col-md-8">
+            <div class="panel">
+                <h5 class="fw-bold mb-4"><i class="bi bi-clock-history text-success"></i> Authentication Tracker (Recent Logins)</h5>
+                
+                <div class="table-responsive">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>USER NAME</th>
+                                <th>ACCOUNT ID</th>
+                                <th>LOGIN TIMESTAMP (UTC)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for log in logs %}
+                            <tr>
+                                <td>
+                                    <strong style="color: #39FF14;">{{ log['name'] }}</strong>
+                                </td>
+                                <td>
+                                    <span class="badge bg-secondary px-2 py-1" style="font-size: 0.8rem;">@{{ log['username'] }}</span>
+                                </td>
+                                <td>
+                                    <i class="bi bi-calendar-event text-secondary me-2"></i>{{ log['login_time'] }}
+                                </td>
+                            </tr>
+                            {% else %}
+                            <tr>
+                                <td colspan="3" class="text-center py-5 text-secondary">
+                                    <i class="bi bi-journal-x" style="font-size: 2rem;"></i><br>
+                                    No login logs recorded yet.
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
