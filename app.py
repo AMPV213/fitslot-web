@@ -5,6 +5,7 @@ from flask import Flask, render_template, request, redirect, url_for, session, f
 import sqlite3
 from werkzeug.security import generate_password_hash, check_password_hash
 from werkzeug.utils import secure_filename
+from datetime import datetime, timezone, timedelta
 
 # --- APP INITIALIZATION ---
 app = Flask(__name__)
@@ -68,9 +69,16 @@ def login():
             session['name'] = user['name']
             session['is_admin'] = user['is_admin'] # Track admin status
             
-            # Log the login timestamp
-            conn.execute('INSERT INTO login_logs (user_id) VALUES (?)', (user['id'],))
+            # --- NEW: Get Philippine Time (UTC +8) ---
+            pht_zone = timezone(timedelta(hours=8))
+            pht_time = datetime.now(pht_zone).strftime('%Y-%m-%d %H:%M:%S')
+            
+            # Log the login timestamp explicitly with PHT
+            conn.execute('INSERT INTO login_logs (user_id, login_time) VALUES (?, ?)', (user['id'], pht_time))
             conn.commit()
+            
+            conn.close()
+            return redirect(url_for('dashboard'))
             
             conn.close()
             return redirect(url_for('dashboard'))
