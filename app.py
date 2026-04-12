@@ -239,13 +239,26 @@ def edit_slot(slot_id):
         
     new_zone = request.form.get('w')
     new_time = request.form.get('t')
+    # --- NEW: Get the new status from the form ---
+    new_status = request.form.get('status')
     
     conn = get_db_connection()
-    conn.execute('''
-        UPDATE members 
-        SET workout = ?, time = ? 
-        WHERE id = ? AND user_id = ?
-    ''', (new_zone, new_time, slot_id, session['user_id']))
+    
+    # If Admin, they can update Zone, Time, AND Status for ANY slot.
+    if session.get('is_admin'):
+        conn.execute('''
+            UPDATE members 
+            SET workout = ?, time = ?, status = ?
+            WHERE id = ?
+        ''', (new_zone, new_time, new_status, slot_id))
+    else:
+        # Normal user can only update Zone and Time, and ONLY for their own slot.
+        conn.execute('''
+            UPDATE members 
+            SET workout = ?, time = ?
+            WHERE id = ? AND user_id = ?
+        ''', (new_zone, new_time, slot_id, session['user_id']))
+        
     conn.commit()
     conn.close()
     
