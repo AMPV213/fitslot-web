@@ -1,0 +1,38 @@
+<bookings>
+    <booking>
+        <user_id>2</user_id>
+        <name>Harold Garzon</name>
+        <workout>Yoga Studio</workout>
+        <time>07:30</time>
+    </booking>
+    <booking>
+        <user_id>3</user_id>
+        <name>Al Michael Villanueva</name>
+        <workout>Boxing Ring</workout>
+        <time>09:00</time>
+    </booking>
+    <booking>
+        <user_id>4</user_id>
+        <name>Zeun Allen Suelo</name>
+        <workout>Swimming Pool</workout>
+        <time>09:00</time>
+    </booking>
+    <booking>
+        <user_id>5</user_id>
+        <name>Timothy Porras</name>
+        <workout>Swimming Pool</workout>
+        <time>11:30</time>
+    </booking>
+    <booking>
+        <user_id>6</user_id>
+        <name>Juan</name>
+        <workout>Olympic Weightlifting</workout>
+        <time>13:00</time>
+    </booking>
+    <booking>
+        <user_id>7</user_id>
+        <name>Belle Cheska Medina</name>
+        <workout>Boxing Ring</workout>
+        <time>18:30</time>
+    </booking>
+</bookings>
