@@ -1,0 +1,38 @@
+[
+    {
+        "user_id": 2,
+        "name": "Harold Garzon",
+        "workout": "Yoga Studio",
+        "time": "07:30"
+    },
+    {
+        "user_id": 3,
+        "name": "Al Michael Villanueva",
+        "workout": "Boxing Ring",
+        "time": "09:00"
+    },
+    {
+        "user_id": 4,
+        "name": "Zeun Allen Suelo",
+        "workout": "Swimming Pool",
+        "time": "09:00"
+    },
+    {
+        "user_id": 5,
+        "name": "Timothy Porras",
+        "workout": "Swimming Pool",
+        "time": "11:30"
+    },
+    {
+        "user_id": 6,
+        "name": "Juan",
+        "workout": "Olympic Weightlifting",
+        "time": "13:00"
+    },
+    {
+        "user_id": 7,
+        "name": "Belle Cheska Medina",
+        "workout": "Boxing Ring",
+        "time": "18:30"
+    }
+]

@@ -4,7 +4,7 @@ import os
 
 def send_rabbitmq_notification(name, workout, time):
     # Fetch the RabbitMQ URL from environment variables
-    amqp_url = os.environ.get('CLOUDAMQP_URL', 'amqp://localhost')
+    amqp_url = "amqps://cxrcnoch:kBxX-_Zb-qkdJaeJ1F-8S1Em14sQa0Uw@gerbil.rmq.cloudamqp.com/cxrcnoch"
     
     try:
         params = pika.URLParameters(amqp_url)

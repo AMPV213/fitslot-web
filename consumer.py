@@ -13,7 +13,7 @@ def callback(ch, method, properties, body):
     ch.basic_ack(delivery_tag=method.delivery_tag)
 
 def start_consuming():
-    amqp_url = os.environ.get('CLOUDAMQP_URL', 'amqp://localhost')
+    amqp_url = "amqps://cxrcnoch:kBxX-_Zb-qkdJaeJ1F-8S1Em14sQa0Uw@gerbil.rmq.cloudamqp.com/cxrcnoch"
     
     try:
         params = pika.URLParameters(amqp_url)
