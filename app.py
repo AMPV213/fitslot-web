@@ -296,5 +296,13 @@ def home():
     }
     return render_template('home.html', **context)
 
+@app.route('/plans')
+def plans():
+    # Keep it secure: make sure the user is logged in!
+    if 'user_id' not in session:
+        return redirect(url_for('login'))
+        
+    return render_template('plans.html')
+
 if __name__ == '__main__':
     app.run(debug=True, port=5000)
