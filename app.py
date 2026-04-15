@@ -79,9 +79,6 @@ def login():
             
             conn.close()
             return redirect(url_for('dashboard'))
-            
-            conn.close()
-            return redirect(url_for('dashboard'))
         else:
             conn.close()
             flash("Invalid credentials.", "danger")
@@ -279,9 +276,16 @@ def cancel_slot(id):
 
 @app.route('/home')
 def home():
-    # Placeholder data for testing the UI
+    # Make sure the user is logged in
+    if 'user_id' not in session:
+        return redirect(url_for('login'))
+        
+    # Dynamically grab the user's name from the session!
+    user_name = session.get('name', 'Athlete')
+    
+    # Data for the UI
     context = {
-        'display_name': 'Porras',
+        'display_name': user_name,
         'current_level': 14,
         'current_streak': 30
     }
