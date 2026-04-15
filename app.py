@@ -280,8 +280,13 @@ def home():
     if 'user_id' not in session:
         return redirect(url_for('login'))
         
-    # Dynamically grab the user's name from the session!
-    user_name = session.get('name', 'Athlete')
+    # Fetch the user's latest data directly from the database
+    conn = get_db_connection()
+    user = conn.execute('SELECT * FROM users WHERE id = ?', (session['user_id'],)).fetchone()
+    conn.close()
+    
+    # Use the name from the database, fallback to 'Athlete' if something goes wrong
+    user_name = user['name'] if user else 'Athlete'
     
     # Data for the UI
     context = {
