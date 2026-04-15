@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FitSlot - Activities</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    
+    <style>
+        body { background-color: #f4f7f6; color: #333333; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+
+        /* --- SIDEBAR STYLES --- */
+        .fitslot-sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100vh;
+            width: 70px;
+            background-color: #ffffff;
+            box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+            transition: width 0.3s ease;
+            overflow: hidden;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .fitslot-sidebar:hover, 
+        .fitslot-sidebar.locked-open {
+            width: 250px;
+        }
+
+        .fitslot-sidebar .nav-text {
+            opacity: 0;
+            white-space: nowrap;
+            margin-left: 15px;
+            transition: opacity 0.2s ease;
+        }
+
+        .fitslot-sidebar:hover .nav-text,
+        .fitslot-sidebar.locked-open .nav-text {
+            opacity: 1;
+        }
+
+        .sidebar-toggle, .sidebar-menu a {
+            display: flex;
+            align-items: center;
+            padding: 20px;
+            color: #333;
+            text-decoration: none;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .sidebar-toggle:hover, .sidebar-menu a:hover {
+            background-color: #f4f4f4;
+            color: #28a745;
+        }
+
+        .sidebar-menu {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .settings-link {
+            margin-top: auto;
+            border-top: 1px solid #eee;
+        }
+
+        .sidebar-toggle i, .sidebar-menu i {
+            font-size: 1.4rem;
+            min-width: 30px;
+            text-align: center;
+        }
+
+        /* --- MAIN PAGE STYLES --- */
+        .main-content-wrapper {
+            margin-left: 70px;
+            padding: 20px;
+            transition: margin-left 0.3s ease;
+        }
+
+        /* Activity Cards */
+        .activity-card {
+            background-color: #ffffff;
+            border-radius: 12px;
+            border: 1px solid #e9ecef;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .activity-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .activity-icon {
+            font-size: 2.5rem;
+            padding: 15px;
+            border-radius: 50%;
+            display: inline-block;
+            margin-bottom: 15px;
+        }
+
+        .btn-start {
+            background-color: #2eb82e;
+            color: #ffffff;
+            font-weight: bold;
+            border: none;
+            transition: 0.3s ease;
+        }
+
+        .btn-start:hover {
+            background-color: #248f24;
+            color: #ffffff;
+        }
+    </style>
+</head>
+<body>
+
+    <nav id="fitslot-sidebar" class="fitslot-sidebar">
+        <div class="sidebar-toggle" onclick="toggleSidebar()">
+            <i class="bi bi-list"></i>
+            <span class="nav-text">Menu</span>
+        </div>
+        <ul class="sidebar-menu">
+            <li>
+                <a href="{{ url_for('home') }}">
+                    <i class="bi bi-house-door"></i>
+                    <span class="nav-text">Home</span>
+                </a>
+            </li>
+            <li>
+                <a href="{{ url_for('dashboard') }}">
+                    <i class="bi bi-grid"></i>
+                    <span class="nav-text">Dashboard</span>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <i class="bi bi-person-badge"></i>
+                    <span class="nav-text">Coaches</span>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <i class="bi bi-calendar3"></i>
+                    <span class="nav-text">Plans</span>
+                </a>
+            </li>
+            <li>
+                <a href="{{ url_for('activities') }}">
+                    <i class="bi bi-activity"></i>
+                    <span class="nav-text" style="color: #28a745; font-weight: bold;">Activities</span>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <i class="bi bi-apple"></i>
+                    <span class="nav-text">Nutrition</span>
+                </a>
+            </li>
+            <li class="settings-link">
+                <a href="#">
+                    <i class="bi bi-gear"></i>
+                    <span class="nav-text">Settings</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+
+    <div class="main-content-wrapper">
+        <div class="container mt-4">
+            
+            <div class="d-flex justify-content-between align-items-center mb-5">
+                <div>
+                    <h2 class="fw-bold text-dark m-0"><i class="bi bi-activity text-success me-2"></i> Activity Center</h2>
+                    <p class="text-muted mt-1 mb-0">Track, log, and crush your fitness goals.</p>
+                </div>
+            </div>
+
+            <div class="row g-4">
+                
+                <div class="col-md-4">
+                    <div class="activity-card p-4 text-center h-100">
+                        <div class="activity-icon" style="background-color: #fff3cd; color: #ffc107;">
+                            <i class="bi bi-lightning-charge-fill"></i>
+                        </div>
+                        <h5 class="fw-bold text-dark">Strength Training</h5>
+                        <p class="text-muted small">Log your sets, reps, and PRs in the weight room.</p>
+                        <hr class="text-muted opacity-25">
+                        <button class="btn btn-start w-100 rounded-3 py-2 mt-2">Log Workout</button>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="activity-card p-4 text-center h-100">
+                        <div class="activity-icon" style="background-color: #ffe3e3; color: #fa5252;">
+                            <i class="bi bi-heart-pulse-fill"></i>
+                        </div>
+                        <h5 class="fw-bold text-dark">Cardio Sessions</h5>
+                        <p class="text-muted small">Track your runs, cycling, or time on the elliptical.</p>
+                        <hr class="text-muted opacity-25">
+                        <button class="btn btn-start w-100 rounded-3 py-2 mt-2">Log Cardio</button>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="activity-card p-4 text-center h-100">
+                        <div class="activity-icon" style="background-color: #d1e7dd; color: #0f5132;">
+                            <i class="bi bi-yin-yang"></i>
+                        </div>
+                        <h5 class="fw-bold text-dark">Flexibility & Yoga</h5>
+                        <p class="text-muted small">Record your mobility routines and recovery days.</p>
+                        <hr class="text-muted opacity-25">
+                        <button class="btn btn-start w-100 rounded-3 py-2 mt-2">Log Recovery</button>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="activity-card p-4 text-center h-100">
+                        <div class="activity-icon" style="background-color: #cff4fc; color: #055160;">
+                            <i class="bi bi-water"></i>
+                        </div>
+                        <h5 class="fw-bold text-dark">Swimming</h5>
+                        <p class="text-muted small">Track laps, strokes, and time spent in the pool.</p>
+                        <hr class="text-muted opacity-25">
+                        <button class="btn btn-start w-100 rounded-3 py-2 mt-2">Log Swim</button>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="activity-card p-4 text-center h-100">
+                        <div class="activity-icon" style="background-color: #e0cffc; color: #510560;">
+                            <i class="bi bi-trophy-fill"></i>
+                        </div>
+                        <h5 class="fw-bold text-dark">Sports & Classes</h5>
+                        <p class="text-muted small">Basketball, boxing, or group fitness sessions.</p>
+                        <hr class="text-muted opacity-25">
+                        <button class="btn btn-start w-100 rounded-3 py-2 mt-2">Log Class</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function toggleSidebar() {
+            const sidebar = document.getElementById('fitslot-sidebar');
+            sidebar.classList.toggle('locked-open');
+        }
+    </script>
+</body>
+</html>
