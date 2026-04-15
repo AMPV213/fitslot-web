@@ -277,5 +277,15 @@ def cancel_slot(id):
     flash("Booking cancelled.", "success")
     return redirect(url_for('dashboard'))
 
+@app.route('/home')
+def home():
+    # Placeholder data for testing the UI
+    context = {
+        'display_name': 'Porras',
+        'current_level': 14,
+        'current_streak': 30
+    }
+    return render_template('home.html', **context)
+
 if __name__ == '__main__':
     app.run(debug=True, port=5000)

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FitSlot - Home</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    
+    <style>
+        /* Your Sidebar CSS goes here */
+
+        /* The wrapper that pushes your homepage content to the right of the sidebar */
+        .main-content {
+            margin-left: 70px; /* Width of the closed sidebar */
+            padding: 20px;
+            transition: margin-left 0.3s ease;
+        }
+
+        /* The container for the code you just pasted */
+        .fitslot-homepage {
+            max-width: 450px; 
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 15px;
+        }
+    </style>
+</head>
+<body>
+
+    <nav id="fitslot-sidebar" class="fitslot-sidebar">
+        </nav>
+
+    <div class="main-content">
+        
+        <div class="fitslot-homepage mx-auto mt-4">
+            <div class="text-center mb-4">
+                <h2 class="fw-bold">Good Day! {{ display_name }} 🔥</h2>
+                </div>
+        </div>
+
+    </div>
+
+    <script>
+        function toggleSidebar() {
+            const sidebar = document.getElementById('fitslot-sidebar');
+            sidebar.classList.toggle('locked-open');
+        }
+    </script>
+</body>
+</html>
