@@ -128,7 +128,7 @@
 
     <ul class="sidebar-menu">
         <li>
-            <a href="#">
+            <a href="{{ url_for('home') }}">
                 <i class="bi bi-house-door"></i>
                 <span class="nav-text">Home</span>
             </a>
@@ -340,7 +340,7 @@
                                                         </select>
                                                     </div>
                                                 {% endif %}
-                                                </div>
+                                            </div>
                                             <div class="modal-footer" style="border-top: 1px solid #e9ecef;">
                                                 <button type="button" class="btn btn-light btn-sm fw-bold border" data-bs-dismiss="modal">Cancel</button>
                                                 <button type="submit" class="btn btn-success btn-sm fw-bold" style="background-color: #2eb82e; border: none;">Save Changes</button>
