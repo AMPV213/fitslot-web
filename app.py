@@ -303,6 +303,9 @@ def plans():
         return redirect(url_for('login'))
         
     return render_template('plans.html')
+@app.route('/activities')
+def activities():
+    return render_template('activities.html')
 
 if __name__ == '__main__':
     app.run(debug=True, port=5000)
